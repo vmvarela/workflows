@@ -40,5 +40,5 @@ jobs:
         run: docker build --tag ghcr.io/${{ github.repository }}:devcontainer .devcontainer
 
       - name: Push
-        if: ${{ inputs.push }}
+        # if: ${{ inputs.push }}
         run: docker push ghcr.io/${{ github.repository }}:devcontainer
