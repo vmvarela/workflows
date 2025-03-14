@@ -1,4 +1,4 @@
-FROM docker.prisamedia.com/alpine:3.21
+FROM alpine:3.21
 
 # Instalar dependencias necesarias
 RUN apk update && apk add --no-cache \
