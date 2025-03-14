@@ -1,5 +1,4 @@
 name: Release
-
 on:
   workflow_dispatch:
 
@@ -7,6 +6,7 @@ jobs:
   semantic-release:
     name: Semantic-Release
     runs-on: ubuntu-latest
+    permissions: write-all
     container:
       image: ghcr.io/${{ github.repository }}:devcontainer
       credentials:

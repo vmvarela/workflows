@@ -15,6 +15,7 @@ jobs:
   pre-commit:
     name: Pre-Commit
     runs-on: ubuntu-latest
+    permissions: write-all
     container:
       image: ghcr.io/${{ github.repository }}:devcontainer
       credentials:
