@@ -1,0 +1,28 @@
+name: Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+    paths-ignore:
+      - '.github/**/*'
+      - '.pre-commit-config.yaml'
+      - '.releaserc.yaml'
+      - '.gitignore'
+
+jobs:
+  pre-commit:
+    name: Pre-Commit
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}:devcontainer
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: git config --global --add safe.directory $(pwd)
+      - run: pre-commit run --show-diff-on-failure --color=always --all-files
