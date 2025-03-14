@@ -1,24 +1,21 @@
-name: Dev Container
+name: Dev-Container
 
 on:
-  push:
   workflow_dispatch:
-    inputs:
-        push:
-          description: 'Realizar el push de la imagen'
-          type: boolean
-          default: false
-
-  workflow_call:
-    inputs:
-      push:
-        description: 'Realizar el push de la imagen'
-        type: boolean
-        default: false
+  pull_request:
+    branches:
+      - master
+    paths:
+      - .devcontainer/**/*
+  push:
+    branches:
+      - master
+    paths:
+      - .devcontainer/**/*
 
 jobs:
   docker:
-    name: Docker ${{ inputs.push && 'Push' || 'Build' }}
+    name: Docker ${{ github.event_name == 'push' && 'Push' || 'Build' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -40,5 +37,5 @@ jobs:
         run: docker build --tag ghcr.io/${{ github.repository }}:devcontainer .devcontainer
 
       - name: Push
-        # if: ${{ inputs.push }}
+        if: ${{ github.event_name == 'push' }}
         run: docker push ghcr.io/${{ github.repository }}:devcontainer
