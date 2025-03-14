@@ -24,4 +24,5 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - run: git config --global --add safe.directory $(pwd)
       - run: pre-commit run --show-diff-on-failure --color=always --all-files
