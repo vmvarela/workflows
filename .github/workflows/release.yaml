@@ -25,4 +25,5 @@ jobs:
             @semantic-release/changelog
             @semantic-release/exec
             @semantic-release/git
+            conventional-changelog-conventionalcommits
             semantic-release-github-actions-tags
