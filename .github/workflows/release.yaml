@@ -1,6 +1,11 @@
 name: Release
 on:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      devcontainer:
+        description: 'Devcontainer'
+        type: string
 
 jobs:
   semantic-release:
@@ -8,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     container:
-      image: ghcr.io/${{ github.repository }}:devcontainer
+      image: ${{ inputs.devcontainer && inputs.devcontainer || 'ghcr.io/vmvarela/workflows:devcontainer' }}
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
