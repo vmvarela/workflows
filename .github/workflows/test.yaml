@@ -5,6 +5,10 @@ on:
       devcontainer:
         description: 'Devcontainer'
         type: string
+      command:
+        description: 'Command to Test'
+        type: string
+        default: 'pre-commit run --show-diff-on-failure --color=always --all-files'
   workflow_dispatch:
   push:
     branches: [master]
@@ -26,9 +30,11 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    env:
+        TEST_COMMAND: ${{ inputs.command && inputs.command || 'pre-commit run --show-diff-on-failure --color=always --all-files' }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - run: git config --global --add safe.directory $(pwd)
-      - run: pre-commit run --show-diff-on-failure --color=always --all-files
+      - run: ${{ env.TEST_COMMAND }}

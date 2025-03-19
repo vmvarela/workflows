@@ -12,11 +12,13 @@ RUN apk update && apk add --no-cache \
     libstdc++ \
     nodejs \
     npm \
+    oh-my-zsh \
     openssh \
     pre-commit \
     py3-pip \
     unzip \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/cache/apk/* \
+    && cp /usr/share/oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
 # Establecer directorio de trabajo
 WORKDIR /workspace
