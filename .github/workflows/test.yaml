@@ -33,6 +33,10 @@ jobs:
     env:
         TEST_COMMAND: ${{ inputs.command && inputs.command || 'pre-commit run --show-diff-on-failure --color=always --all-files' }}
     steps:
+      - uses: easyware-io/export-to-env@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+          vars: ${{ toJSON(vars) }}
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
